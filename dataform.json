@@ -3,12 +3,14 @@
   "defaultDatabase": "mx-tech-cli-ale-marketingagent",
   "defaultSchema": "marketing",
   "assertionSchema": "marketing_assertions",
-  "defaultLocation": "us-central1",
+  "defaultLocation": "US",
   "vars": {
     "ga4_property_id": "277858205",
-    "ga4_export_project": "mx-tech-cli-ale-marketingagent",
-    "ga4_export_dataset": "ga4_export_dataset",
-    "ga4_export_table_suffix": "_*",
+    "ga4_export_project": "sorteostec-analytics360",
+    "ga4_export_dataset": "analytics_277858205",
+    "ga4_export_project_test": "mx-tech-cli-ale-marketingagent",
+    "ga4_export_dataset_test": "ga4_export_dataset_mislabeled",
+    "ga4_export_table_suffix": "_intraday_*",
     "ga4_incremental_processing_days_back": "3",
     "ads_export_data": "[{\"project\": \"PROJECT_ID\",\"dataset\": \"DATASET_NAME\", \"table_suffix\": \"_123456\"},{\"project\": \"PROJECT_ID\",\"dataset\": \"DATASET_NAME\",\"table_suffix\": \"_34567890\"}]",
   "ads_metrics_lookback_days": "365"
