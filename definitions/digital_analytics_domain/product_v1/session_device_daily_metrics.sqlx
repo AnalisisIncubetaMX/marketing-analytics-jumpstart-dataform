@@ -30,7 +30,9 @@ WITH
     DISTINCT event.event_date,
     event.ga_session_id,
     event.user_pseudo_id,
-    SUM(COALESCE(event.ecommerce.purchase_revenue_in_usd,0)) as total_purchase_revenue,
+    -- CALCULATE PURCHASE REVENUE ON MXN, INSTEAD OF IN USD
+    -- SUM(COALESCE(event.ecommerce.purchase_revenue_in_usd,0)) as total_purchase_revenue,
+    SUM(COALESCE(event.ecommerce.purchase_revenue,0)) as total_purchase_revenue,
     ${caseStatement} AS device_web_browser,
     INITCAP(device.device_category) AS device_category
   FROM

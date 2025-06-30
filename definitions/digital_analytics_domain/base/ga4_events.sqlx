@@ -163,7 +163,12 @@ SELECT
       ${stripNotSet('ecommerce.transaction_id', 'transaction_id')},
       SAFE_CAST(ecommerce.purchase_revenue_in_usd AS NUMERIC) as purchase_revenue_in_usd,
       ecommerce.total_item_quantity as total_item_quantity,
-      ecommerce.refund_value_in_usd as refund_value_in_usd
+      ecommerce.refund_value_in_usd as refund_value_in_usd,
+      -- ADDED FIELDS FOR ECOMMERCE METRICS IN MXN
+      SAFE_CAST(ecommerce.purchase_revenue AS NUMERIC) as purchase_revenue,
+      ecommerce.refund_value as refund_value,
+      ecommerce.shipping_value as shipping_value,
+      ecommerce.tax_value as tax_value
     ) ecommerce,
     ${intEventParam("ga_session_id")} as ga_session_id,
     ${intEventParam("ga_session_number")} as ga_session_number,
