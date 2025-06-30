@@ -32,8 +32,14 @@ js {
     return 'COALESCE(' + column + ', "") as ' + columnName;
   }
   // Exclude extra day exports 
-  const excludeExtraDays = 'NOT STARTS_WITH(_TABLE_SUFFIX, "intraday") OR NOT STARTS_WITH(_TABLE_SUFFIX, "fresh")';
+  const excludeExtraDays = 'NOT STARTS_WITH(_TABLE_SUFFIX, "fresh")';
 }
+
+/*
+  // MODIFIED THE LAST LINE IN THE PREVIOUS JS DECLARATION BECAUSE THE CUSTOMER'S GA4 360
+  // IMPLEMENTATION WRONGLY USES "events_intraday_" as meta-table name, instead of just "events_"
+  // const excludeExtraDays = 'NOT STARTS_WITH(_TABLE_SUFFIX, "intraday") OR NOT STARTS_WITH(_TABLE_SUFFIX, "fresh")';
+*/
 
 config { 
   type: "view",
@@ -182,16 +188,28 @@ SELECT
     privacy_info,
     is_active_user,
     _TABLE_SUFFIX as table_suffix
+
+-- MODIFY THE METATABLE NAME TO MATCH THE CUSTOMER'S IMPLEMENTATION
 FROM ${ref('events' + dataform.projectConfig.vars.ga4_export_table_suffix)}
-WHERE ${excludeExtraDays}
+-- FROM ${ref('events_intraday' + dataform.projectConfig.vars.ga4_export_table_suffix)}
+
+WHERE
+  ${excludeExtraDays}
+  -- HARDCODE _TABLE_SUFFIX TO SET A SPECIFIC DATE FOR EARLIER LOADING
+  AND _TABLE_SUFFIX > '20250501'
+  /*
   AND _TABLE_SUFFIX > 
     FORMAT_DATE("%Y%m%d", DATE_SUB(
-      ((
-   SELECT MAX(SAFE.PARSE_DATE('%Y%m%d',_TABLE_SUFFIX))
-  FROM ${ref('events' + dataform.projectConfig.vars.ga4_export_table_suffix)}
-  -- Exclude extra day exports 
-  WHERE ${excludeExtraDays}
-)),
+      (
+        (
+          SELECT MAX(SAFE.PARSE_DATE('%Y%m%d',_TABLE_SUFFIX))
+          -- MODIFY THE METATABLE NAME TO MATCH THE CUSTOMER'S IMPLEMENTATION
+          FROM ${ref('events' + dataform.projectConfig.vars.ga4_export_table_suffix)}          
+          -- Exclude extra day exports 
+          WHERE ${excludeExtraDays}
+        )
+      ),
       INTERVAL ${dataform.projectConfig.vars.ga4_incremental_processing_days_back} DAY
     ))
+  */
 )
