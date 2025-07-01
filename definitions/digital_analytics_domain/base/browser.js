@@ -24,7 +24,7 @@ publish("browser", {
   bigquery: {
     clusterBy: ["browser_id"]
   },
-  tags: ['ga4']
+  tags: ["ga4", "base"]
   }).query(ctx => 
   `WITH source AS
   (SELECT DISTINCT

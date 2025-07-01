@@ -33,7 +33,7 @@ config {
     partitionBy: "DATETIME_TRUNC(event_timestamp, DAY)",
     clusterBy: ["ga_session_id", "user_pseudo_id", "event_name"]
   },
-  tags: ['ga4']
+  tags: ["ga4", "base"]
   }
 
 pre_operations {

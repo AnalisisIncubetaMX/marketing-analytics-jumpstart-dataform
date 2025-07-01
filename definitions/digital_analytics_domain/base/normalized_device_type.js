@@ -24,7 +24,7 @@ publish("normalized_device_type", {
   bigquery: {
     clusterBy: ["normalized_device_type_id"]
   },
-  tags: ['ga4']
+  tags: ["ga4", "base"]
   }).query(ctx => 
   `WITH source AS
   (SELECT DISTINCT

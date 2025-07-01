@@ -25,7 +25,7 @@ config {
         // TODO: clustering on this table are best estimates
         clusterBy: ["session_start", "user_pseudo_id"]
     },
-    tags: ["ga4"]
+    tags: ["ga4", "base"]
 }
 -- Session statistics will be updated as the result of the Dataform's generated MERGE.
 -- They will be updated for the number of days defined in "ga4_incremental_processing_days_back" variable
