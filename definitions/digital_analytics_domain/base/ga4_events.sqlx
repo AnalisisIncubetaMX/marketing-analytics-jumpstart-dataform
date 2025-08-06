@@ -201,7 +201,7 @@ FROM ${ref('events' + dataform.projectConfig.vars.ga4_export_table_suffix)}
 WHERE
   ${excludeExtraDays}
   -- HARDCODE _TABLE_SUFFIX TO SET A SPECIFIC DATE FOR EARLIER LOADING
-  AND _TABLE_SUFFIX > '20250501'
+  AND _TABLE_SUFFIX > '20250101'
   /*
   AND _TABLE_SUFFIX > 
     FORMAT_DATE("%Y%m%d", DATE_SUB(
